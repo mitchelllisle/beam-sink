@@ -32,7 +32,11 @@ class _Query(beam.DoFn):
     Args:
         config: Supports passing any config elements to the mysql.connector library. Most
         commonly this will be:
-        config: Database configuration options
+        host - host of database
+        port - 3306 is the MySQL default
+        username - User to connect as
+        password -  Password for username
+        database - The database to connect to
     """
     def __init__(self, config: DBConfig):
         super().__init__(config)
