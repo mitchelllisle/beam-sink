@@ -1,5 +1,7 @@
 # BeamSink
+
 🤖 An Apache Beam Sink Library for Databases and other Sinks
+
 🐘 Supports MySQL (Postgres, Elasticsearch)
 
 ## Installation
