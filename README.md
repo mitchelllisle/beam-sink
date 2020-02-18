@@ -2,7 +2,7 @@
 
 🤖 An Apache Beam Sink Library for Databases and other Sinks
 
-🐘 Supports MySQL (Postgres, Elasticsearch)
+🐘 Supports MySQL (Postgres, Elasticsearch coming soon...)
 
 ## Installation
 
@@ -17,12 +17,17 @@ pip install beam_sink
 import apache_beam as beam
 from beam_sink.sinks.mysql import MySQLQuery, DBConfig
 
+# First, we initialise a DB config object that can validate we're providing the right information
 config = DBConfig(host="localhost", username="lenny", password="karl", database="springfield")
 
+# Then we write a query 
+query = "select * from thrillhouse"
+
+# Initialise your Beam Pipeline the way you normally would
 with beam.Pipeline() as p:
     (
         p 
-        | 'ReadTable' >> MySQLQuery(config, "select * from thrillhouse")
+        | 'ReadTable' >> MySQLQuery(config, query)
         | 'PrintResult' >> beam.ParDo(lambda x: print(x))
     )
 
