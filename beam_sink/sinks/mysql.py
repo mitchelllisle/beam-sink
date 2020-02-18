@@ -4,7 +4,7 @@ from typing import Iterator, Dict
 from pydantic import BaseModel
 
 
-class DBConfig(BaseModel):
+class MySQLConfig(BaseModel):
     host: str
     port: int = 3306
     username: str
@@ -13,7 +13,7 @@ class DBConfig(BaseModel):
 
 
 class MySQLQuery(beam.PTransform):
-    def __init__(self, dbconfig: DBConfig, query: str):
+    def __init__(self, dbconfig: MySQLConfig, query: str):
         super().__init__()
         self.dbconfig = dbconfig
         self.query = query
@@ -38,7 +38,7 @@ class _Query(beam.DoFn):
         password -  Password for username
         database - The database to connect to
     """
-    def __init__(self, config: DBConfig):
+    def __init__(self, config: MySQLConfig):
         super().__init__(config)
         self.config = config
         self.conn = None

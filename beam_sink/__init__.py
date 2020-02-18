@@ -1,0 +1,1 @@
+from beam_sink.sinks.mysql import MySQLConfig, MySQLQuery

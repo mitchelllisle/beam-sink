@@ -15,10 +15,10 @@ pip install beam_sink
 
 ```python
 import apache_beam as beam
-from beam_sink.sinks.mysql import MySQLQuery, DBConfig
+from beam_sink import MySQLQuery, MySQLConfig
 
 # First, we initialise a DB config object that can validate we're providing the right information
-config = DBConfig(host="localhost", username="lenny", password="karl", database="springfield")
+config = MySQLConfig(host="localhost", username="lenny", password="karl", database="springfield")
 
 # Then we write a query 
 query = "select * from thrillhouse"
