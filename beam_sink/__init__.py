@@ -1,1 +1,0 @@
-from sinks.mysql import MySQLQuery

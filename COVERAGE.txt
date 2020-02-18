@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.7.0, pytest-3.6.3, py-1.5.4, pluggy-0.6.0
+rootdir: /Users/mitchell/Documents/Projects/packages/beam-sink, inifile:
+plugins: cov-2.5.1
+collected 3 items
+
+tests/test_mysql.py ...                                                  [100%]
+
+---------- coverage: platform darwin, python 3.7.0-final-0 -----------
+Name                          Stmts   Miss  Cover
+-------------------------------------------------
+beam_sink/__init__.py             0      0   100%
+beam_sink/sinks/__init__.py       0      0   100%
+beam_sink/sinks/mysql.py         50     12    76%
+-------------------------------------------------
+TOTAL                            50     12    76%
+
+
+=========================== 3 passed in 1.81 seconds ===========================
