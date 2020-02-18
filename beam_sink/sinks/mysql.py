@@ -14,7 +14,7 @@ class DBConfig(BaseModel):
 
 class MySQLQuery(beam.PTransform):
     def __init__(self, dbconfig: DBConfig, query: str):
-        super(MySQLQuery).__init__()
+        super().__init__()
         self.dbconfig = dbconfig
         self.query = query
 
