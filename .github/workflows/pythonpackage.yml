@@ -30,7 +30,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
-        pytest --cov-report=xml --cov=beam_sink tests/
+        pytest --cov-report=xml
     - uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
