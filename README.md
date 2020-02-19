@@ -1,5 +1,6 @@
 # BeamSink
 ![Tests](https://github.com/mitchelllisle/beam-sink/workflows/Tests/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/mitchelllisle/beam-sink/branch/master/graph/badge.svg)](https://codecov.io/gh/mitchelllisle/beam-sink)
 
 🤖 An Apache Beam Sink Library for Databases and other Sinks
 
