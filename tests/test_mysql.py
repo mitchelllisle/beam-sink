@@ -4,14 +4,28 @@ import unittest
 import pytest
 import json
 from pydantic import ValidationError
+import mysql.connector as mysql
+
+
+def setup_database(config: MySQLConfig):
+    cnx = mysql.connect(host=config.host, port=config.port, username=config.username, password=config.password)
+    cur = cnx.cursor()
+    cur.execute("CREATE DATABASE IF NOT EXISTS thrillhouse")
+    cnx.database = "thrillhouse"
+    cur.execute("CREATE TABLE IF NOT EXISTS thrillhouse (id text, description text, amount text)")
+    cnx.commit()
+    cnx.close()
 
 
 class TestMySQL(unittest.TestCase):
-    def test_mysql_query_returns(self):
-        config = MySQLConfig(host="localhost", username="root", password="password", database="thrillhouse")
+    def setUp(self) -> None:
+        self.config = MySQLConfig(host="localhost", username="root", password="password", database="thrillhouse")
+        setup_database(self.config)
 
+
+    def test_mysql_query_returns(self):
         with beam.Pipeline() as p:
-            p | 'ReadTable' >> MySQLQuery(config, "select * from thrillhouse")
+            p | 'ReadTable' >> MySQLQuery(self.config, "select * from thrillhouse")
 
     def test_success_of_assignment(self):
         config = {"host": "localhost", "username": "root", "password": "password", "database": "thrillhouse"}
@@ -27,18 +41,11 @@ class TestMySQL(unittest.TestCase):
             MySQLConfig(**config)
 
     def test_mysql_insert(self):
-        config = MySQLConfig(
-            host="localhost",
-            username="root",
-            password="password",
-            database="thrillhouse"
-        )
-
         with beam.Pipeline() as p:
             (
                 p
                 | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.json")
                 | 'Parse' >> beam.Map(lambda x: json.loads(x))
-                | 'WriteData' >> MySQLInsert(config, "thrillhouse", ["transaction_id", "description", "account_id"])
+                | 'WriteData' >> MySQLInsert(self.config, "thrillhouse", ["transaction_id", "description", "account_id"])
             )
 
