@@ -1,4 +1,5 @@
 # BeamSink
+![Tests](https://github.com/mitchelllisle/beam-sink/workflows/Tests/badge.svg?branch=master)
 
 🤖 An Apache Beam Sink Library for Databases and other Sinks
 
