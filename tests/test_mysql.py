@@ -19,16 +19,15 @@ def setup_database(config: MySQLConfig):
 
 class TestMySQL(unittest.TestCase):
     def setUp(self) -> None:
-        self.config = MySQLConfig(host="localhost", username="root", password="password", database="thrillhouse")
+        self.config = MySQLConfig(host="localhost", username="root", password="root", database="thrillhouse")
         setup_database(self.config)
-
 
     def test_mysql_query_returns(self):
         with beam.Pipeline() as p:
             p | 'ReadTable' >> MySQLQuery(self.config, "select * from thrillhouse")
 
     def test_success_of_assignment(self):
-        config = {"host": "localhost", "username": "root", "password": "password", "database": "thrillhouse"}
+        config = {"host": "localhost", "username": "root", "password": "root", "database": "thrillhouse"}
         dbconfig = MySQLConfig(**config)
         assert dbconfig.host == config["host"]
         assert dbconfig.username == config["username"]
