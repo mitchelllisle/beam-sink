@@ -5,10 +5,10 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.7]
 
     steps:
     - uses: actions/checkout@v2
@@ -30,4 +30,6 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
+        pip install codecov
         pytest
+        codecov --token=${{ secrets.CODECOV_TOKEN }}
