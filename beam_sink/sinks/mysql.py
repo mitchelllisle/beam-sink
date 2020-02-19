@@ -97,7 +97,5 @@ class _PutFn(beam.DoFn):
 
 class _Insert(_PutFn):
     def process(self, element) -> None:
-        self.cursor.execute(
-            f"INSERT INTO {self.table} ({', '.join(self.cols)}) VALUES ({', '.join([f'%s' for _ in self.cols])});",
-            element
-        )
+        stmt = f"INSERT INTO `{self.table}` ({', '.join(self.cols)}) VALUES ({', '.join([f'%({col})s' for col in self.cols])});"
+        self.cursor.execute(stmt, element)
