@@ -1,4 +1,6 @@
 apache-beam
 mysql-connector-python
 pydantic
+numpy
 pytest
+pytest-cov

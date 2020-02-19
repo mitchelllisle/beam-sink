@@ -1,7 +1,8 @@
-from beam_sink.sinks.mysql import MySQLQuery, MySQLConfig
+from beam_sink.sinks.mysql import MySQLQuery, MySQLInsert, MySQLConfig
 import apache_beam as beam
 import unittest
 import pytest
+import json
 from pydantic import ValidationError
 
 
@@ -24,4 +25,20 @@ class TestMySQL(unittest.TestCase):
         with pytest.raises(ValidationError):
             config = {"host": "localhost", "username": "root", "database": "thrillhouse"}
             MySQLConfig(**config)
+
+    def test_mysql_insert(self):
+        config = MySQLConfig(
+            host="localhost",
+            username="root",
+            password="password",
+            database="thrillhouse"
+        )
+
+        with beam.Pipeline() as p:
+            (
+                p
+                | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.json")
+                | 'Parse' >> beam.Map(lambda x: json.loads(x))
+                | 'WriteData' >> MySQLInsert(config, "thrillhouse", ["transaction_id", "description", "account_id"])
+            )
 

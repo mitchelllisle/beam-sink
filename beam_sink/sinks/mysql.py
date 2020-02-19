@@ -1,7 +1,7 @@
 import apache_beam as beam
 import mysql.connector as mysql
-from typing import Iterator, Dict
 from pydantic import BaseModel
+from typing import Iterator, Dict, Optional, List
 
 
 class MySQLConfig(BaseModel):
@@ -23,6 +23,20 @@ class MySQLQuery(beam.PTransform):
             pcoll
             | beam.Create([self.query])
             | beam.ParDo(_Query(self.dbconfig))
+        )
+
+
+class MySQLInsert(beam.PTransform):
+    def __init__(self, dbconfig: MySQLConfig, table: str, columns: List):
+        super().__init__()
+        self.dbconfig = dbconfig
+        self.table = table
+        self.columns = columns
+
+    def expand(self, pcoll):
+        return (
+            pcoll
+            | beam.ParDo(_Insert(self.table, self.columns, self.dbconfig))
         )
 
 
@@ -58,9 +72,9 @@ class _Query(beam.DoFn):
             self.conn.close()
 
 
-class _Insert(beam.DoFn):
-    def __init__(self, table, columns, **config):
-        super().__init__(**config)
+class _PutFn(beam.DoFn):
+    def __init__(self, table: str, columns: List, config: MySQLConfig):
+        super().__init__()
         self.config = config
         self.table = table
         self.cols = columns
@@ -68,17 +82,22 @@ class _Insert(beam.DoFn):
         self.cursor = None
 
     def start_bundle(self) -> None:
-        self.conn = mysql.connect(**self.config)
+        self.conn = mysql.connect(**self.config.dict())
         self.cursor = self.conn.cursor(dictionary=True)
 
     def process(self, element) -> None:
-        self.cursor.execute(
-            f"REPLACE {self.table} ({', '.join(self.cols)}) VALUES ({', '.join([f'%s' for _ in self.cols])});",
-            element
-        )
+        raise NotImplementedError
 
     def finish_bundle(self):
         try:
             self.conn.commit()
         finally:
             self.conn.close()
+
+
+class _Insert(_PutFn):
+    def process(self, element) -> None:
+        self.cursor.execute(
+            f"INSERT INTO {self.table} ({', '.join(self.cols)}) VALUES ({', '.join([f'%s' for _ in self.cols])});",
+            element
+        )
