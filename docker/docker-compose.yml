@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   beam-sink:
-    image: gcr.io/bud-project-143615/datasci-python3.7:latest
+    image: python3.7
     environment:
       PYPIUSER: ${PYPIUSER}
       PYPIPASSWORD: ${PYPIPASSWORD}
