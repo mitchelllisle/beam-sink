@@ -6,7 +6,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ../:/source
+      - ./:/source
     entrypoint: /source/docker/run-tests.sh
 
   mysql:
