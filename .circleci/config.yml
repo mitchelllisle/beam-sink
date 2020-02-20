@@ -17,7 +17,7 @@ jobs:
           command: |
               sudo pip install pytest pytest-cov
       - run:
-          command: pytest --cov-report=xml > .coverage
+          command: pytest --cov-report=xml
           name: Test
       - codecov/upload:
           file: .coverage
