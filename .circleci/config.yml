@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
-  codecov: codecov/codecov@1.0.2
 
 jobs:
   build-and-test:
@@ -11,19 +10,8 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
-      - run:
-          command: |
-              sudo pip install pytest pytest-cov
       - run:
           command: docker-compose -f docker/docker-compose.yml up -d
-      - run:
-          command: pytest --cov-report=xml
-          name: Test
-      - codecov/upload:
-          file: .coverage
 
 workflows:
   main:
