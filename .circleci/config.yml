@@ -17,6 +17,8 @@ jobs:
           command: |
               sudo pip install pytest pytest-cov
       - run:
+          command: docker-compose -f docker/docker-compose.yml up -d
+      - run:
           command: pytest --cov-report=xml
           name: Test
       - codecov/upload:
