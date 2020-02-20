@@ -30,6 +30,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
+        pip install pytest-cov
         pip install codecov
-        pytest
+        pytest --cov-report=xml > COVERAGE.xml
         codecov --token=${{ secrets.CODECOV_TOKEN }}
