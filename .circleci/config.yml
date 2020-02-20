@@ -13,7 +13,9 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: pytest
+          command: pip install pytest pytest-cov
+      - run:
+          command: pytest --cov=./
           name: Test
 
 workflows:
