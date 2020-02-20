@@ -19,7 +19,7 @@ def setup_database(config: MySQLConfig):
 
 class TestMySQL(unittest.TestCase):
     def setUp(self) -> None:
-        self.config = MySQLConfig(host="localhost", username="root", password="root", database="thrillhouse")
+        self.config = MySQLConfig(host="127.0.0.1", username="root", password="root", database="thrillhouse")
         setup_database(self.config)
 
     def test_mysql_query_returns(self):
@@ -27,7 +27,7 @@ class TestMySQL(unittest.TestCase):
             p | 'ReadTable' >> MySQLQuery(self.config, "select * from thrillhouse")
 
     def test_success_of_assignment(self):
-        config = {"host": "localhost", "username": "root", "password": "root", "database": "thrillhouse"}
+        config = {"host": "127.0.0.1", "username": "root", "password": "root", "database": "thrillhouse"}
         dbconfig = MySQLConfig(**config)
         assert dbconfig.host == config["host"]
         assert dbconfig.username == config["username"]
@@ -36,7 +36,7 @@ class TestMySQL(unittest.TestCase):
 
     def test_validation_error(self):
         with pytest.raises(ValidationError):
-            config = {"host": "localhost", "username": "root", "database": "thrillhouse"}
+            config = {"host": "127.0.0.1", "username": "root", "database": "thrillhouse"}
             MySQLConfig(**config)
 
     def test_mysql_insert(self):
