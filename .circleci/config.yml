@@ -10,6 +10,7 @@ jobs:
       - image: circleci/python:3.7.3
     steps:
       - checkout
+      - setup_remote_docker
       - python/load-cache
       - python/install-deps
       - python/save-cache
