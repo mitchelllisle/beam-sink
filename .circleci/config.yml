@@ -14,6 +14,9 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
+          command: |
+              sudo pip install pytest pytest-cov
+      - run:
           command: pytest --cov-report=xml > .coverage
           name: Test
       - codecov/upload:
