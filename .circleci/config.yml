@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@0.2.1
+  codecov: codecov/codecov@1.0.2
 
 jobs:
   build-and-test:
@@ -13,10 +13,10 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: pip install pytest pytest-cov
-      - run:
           command: pytest --cov=./
           name: Test
+      - codecov/upload:
+          file: {{ coverage_report_filepath }}
 
 workflows:
   main:
