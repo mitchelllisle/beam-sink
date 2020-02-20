@@ -14,10 +14,10 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: pytest --cov=./
+          command: pytest --cov-report=xml > .coverage
           name: Test
       - codecov/upload:
-          file: {{ coverage_report_filepath }}
+          file: .coverage
 
 workflows:
   main:
