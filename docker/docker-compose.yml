@@ -6,8 +6,8 @@ services:
     depends_on:
       - db
     volumes:
-      - .././:/source
-    entrypoint: /docker/run-tests.sh
+      - ../:/source
+    entrypoint: /source/docker/run-tests.sh
 
   db:
       image: mysql:5.7
