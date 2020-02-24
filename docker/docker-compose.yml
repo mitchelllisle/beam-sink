@@ -6,7 +6,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ../:/source
+      - .././:/source
     entrypoint: /source/docker/run-tests.sh
 
   db:
