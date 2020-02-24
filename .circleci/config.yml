@@ -11,6 +11,8 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          command: docker cp ./ /source
+      - run:
           command: docker-compose -f docker/docker-compose.yml up -d
 
 workflows:
