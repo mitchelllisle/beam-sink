@@ -1,5 +1,3 @@
 apache-beam
 mysql-connector-python
 pydantic
-pytest
-pytest-cov

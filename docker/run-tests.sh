@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
-pip install -r requirements-test.txt
+set -e
 
-pytest --cov-report=xml > coverage.xml
+chmod 777 source
+cd source
+pip install --user -r requirements-test.txt
+pip install --user -e .
+
+python -m pytest --cov=beam_sink
