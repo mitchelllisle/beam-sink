@@ -7,7 +7,7 @@ services:
       - db
     volumes:
       - .././:/source
-    entrypoint: /source/docker/run-tests.sh
+    entrypoint: /docker/run-tests.sh
 
   db:
       image: mysql:5.7
