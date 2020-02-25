@@ -66,8 +66,7 @@ class MySQLInsert(beam.PTransform):
 
 
 class _Query(beam.DoFn):
-    """
-    An internal DoFn to be used in a PTransform. Not for external use.
+    """An internal DoFn to be used in a PTransform. Not for external use.
     """
     def __init__(self, config: MySQLConfig):
         super().__init__(config)
@@ -90,8 +89,7 @@ class _Query(beam.DoFn):
 
 
 class _PutFn(beam.DoFn):
-    """
-    An internal DoFn to be used in a PTransform. Not for external use.
+    """An internal DoFn to be used in a PTransform. Not for external use.
     """
     def __init__(self, table: str, columns: List, config: MySQLConfig):
         super().__init__()
@@ -116,7 +114,7 @@ class _PutFn(beam.DoFn):
 
 
 class _Insert(_PutFn):
-    """An internal DoFn to be used in a PTransform. Not for external use
+    """An internal DoFn to be used in a PTransform. Not for external use.
     """
     def process(self, element) -> None:
         stmt = f"INSERT INTO `{self.table}` ({', '.join(self.cols)}) VALUES ({', '.join([f'%({col})s' for col in self.cols])});"
