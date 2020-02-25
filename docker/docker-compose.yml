@@ -4,7 +4,7 @@ services:
   tests:
     image: circleci/python:3.7.3
     depends_on:
-      - db
+      - mysql
     volumes:
       - ../:/source
     entrypoint: /source/docker/run-tests.sh
