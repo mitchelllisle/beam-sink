@@ -11,4 +11,4 @@ jobs:
       run: |
         sudo /etc/init.d/mysql stop
     - name: Run Docker
-      run: docker-compose -f docker/docker-compose.yml up --abort-on-container-exit
+      run: sudo docker-compose -f docker/docker-compose.yml up --abort-on-container-exit
