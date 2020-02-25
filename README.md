@@ -1,6 +1,7 @@
 # BeamSink
 ![Tests](https://github.com/mitchelllisle/beam-sink/workflows/Tests/badge.svg?branch=master)
 [![PyPI version](https://badge.fury.io/py/beam-sink.svg)](https://badge.fury.io/py/beam-sink)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa0103c0a79c4f7c9188cf4e0fd4ad83)](https://www.codacy.com/manual/lislemitchell/beam-sink?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mitchelllisle/beam-sink&amp;utm_campaign=Badge_Grade)
 
 🤖 An Apache Beam Sink Library for Databases and other Sinks
 
