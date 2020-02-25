@@ -5,9 +5,8 @@ import pytest
 import json
 from pydantic import ValidationError
 import mysql.connector as mysql
-import os
 
-HOST = "localhost" if os.getenv("DEVELOP", False) else "mysql"
+HOST = "127.0.0.1"
 
 
 def setup_database(config: MySQLConfig):
