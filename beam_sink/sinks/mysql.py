@@ -13,7 +13,7 @@ class MySQLConfig(BaseModel):
 
 
 class MySQLQuery(beam.PTransform):
-    """MySQLQuery.
+    """
     Query MySQL databases
     Args:
         dbconfig: Supports passing any config elements to the mysql.connector library. Most
@@ -39,7 +39,7 @@ class MySQLQuery(beam.PTransform):
 
 
 class MySQLInsert(beam.PTransform):
-    """MySQLInsert.
+    """
     Insert Data into MySQL databases
     Args:
         dbconfig: Supports passing any config elements to the mysql.connector library. Most
@@ -66,7 +66,7 @@ class MySQLInsert(beam.PTransform):
 
 
 class _Query(beam.DoFn):
-    """Query.
+    """
     An internal DoFn to be used in a PTransform. Not for external use
     """
     def __init__(self, config: MySQLConfig):
@@ -90,7 +90,7 @@ class _Query(beam.DoFn):
 
 
 class _PutFn(beam.DoFn):
-    """PutFn.
+    """
     An internal DoFn to be used in a PTransform. Not for external use
     """
     def __init__(self, table: str, columns: List, config: MySQLConfig):
@@ -116,7 +116,7 @@ class _PutFn(beam.DoFn):
 
 
 class _Insert(_PutFn):
-    """Insert.
+    """
     An internal DoFn to be used in a PTransform. Not for external use
     """
     def process(self, element) -> None:
