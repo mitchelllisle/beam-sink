@@ -1,7 +1,7 @@
 import apache_beam as beam
 import mysql.connector as mysql
 from pydantic import BaseModel
-from typing import Iterator, Dict, Optional, List
+from typing import Iterator, Dict, List
 
 
 class MySQLConfig(BaseModel):

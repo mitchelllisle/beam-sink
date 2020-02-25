@@ -12,3 +12,5 @@ jobs:
         sudo /etc/init.d/mysql stop
     - name: Run Docker
       run: sudo docker-compose -f docker/docker-compose.yml up --abort-on-container-exit
+    - name: Get Coverage File
+      run: 'docker cp tests:/coverage.xml'
