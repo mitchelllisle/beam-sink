@@ -1,0 +1,11 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Docker
+      run: docker-compose -f docker/docker-compose.yml up
