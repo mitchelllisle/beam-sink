@@ -1,15 +1,7 @@
 version: '3.3'
 
 services:
-  tests:
-    image: circleci/python:3.7.3
-    depends_on:
-      - db
-    volumes:
-      - ../:/source
-    entrypoint: /source/docker/run-tests.sh
-
-  db:
+  mysql:
       image: mysql:5.7
       environment:
         MYSQL_DATABASE: 'thrillhouse'
