@@ -1,5 +1,6 @@
 # BeamSink
 ![Tests](https://github.com/mitchelllisle/beam-sink/workflows/Tests/badge.svg?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/373d83f1fdb546bb8a3ea7827f2e214c)](https://app.codacy.com/manual/lislemitchell/beam-sink?utm_source=github.com&utm_medium=referral&utm_content=mitchelllisle/beam-sink&utm_campaign=Badge_Grade_Dashboard)
 [![codecov](https://codecov.io/gh/mitchelllisle/beam-sink/branch/master/graph/badge.svg)](https://codecov.io/gh/mitchelllisle/beam-sink)
 [![PyPI version](https://badge.fury.io/py/beam-sink.svg)](https://badge.fury.io/py/beam-sink)
 
