@@ -12,9 +12,3 @@ jobs:
         sudo /etc/init.d/mysql stop
     - name: Run Docker
       run: sudo docker-compose -f docker/docker-compose.yml up --abort-on-container-exit
-    - name: Codecov
-      uses: codecov/codecov-action@v1.0.5
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage.xml
-        fail_ci_if_error: true
