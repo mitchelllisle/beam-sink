@@ -14,7 +14,7 @@ setup(
     name="beam_sink",
     author="Mitchell Lisle",
     author_email='m.lisle90@gmail.com',
-    description="An Apache Beam Sink Library for Databases and other Sinks",
+    description="An Apache Beam Sink Library for Databases and other Sinks.",
     install_requires=requirements,
     setup_requires=setup_requirements,
     test_suite='tests',
