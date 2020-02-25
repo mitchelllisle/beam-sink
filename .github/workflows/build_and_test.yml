@@ -1,9 +1,9 @@
-name: Tests
+name: Run Tests
 
 on: [push]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
@@ -11,4 +11,4 @@ jobs:
       run: |
         sudo /etc/init.d/mysql stop
     - name: Run Docker
-      run: docker-compose -f docker/docker-compose.yml up
+      run: docker-compose -f docker/docker-compose.yml -d up
