@@ -2,7 +2,7 @@
 set -e
 
 cd source
-pip install --user -r requirements-test.txt
-pip install --user -e .
+sudo pip install --user -r requirements-test.txt
+sudo pip install --user -e .
 
-python -m pytest --cov=beam_sink
+sudo python -m pytest --cov=beam_sink
