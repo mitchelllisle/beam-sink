@@ -12,7 +12,7 @@ class MySQLConfig(BaseModel):
     database: str
 
 
-class MySQLQuery(beam.PTransform):
+class ReadMySQL(beam.PTransform):
     """
     Query MySQL databases
     Args:
@@ -38,7 +38,7 @@ class MySQLQuery(beam.PTransform):
         )
 
 
-class MySQLInsert(beam.PTransform):
+class WriteToMySQL(beam.PTransform):
     """
     Insert Data into MySQL databases
     Args:

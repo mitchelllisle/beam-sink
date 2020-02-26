@@ -1,1 +1,1 @@
-from beam_sink.sinks.mysql import MySQLConfig, MySQLInsert, MySQLQuery
+from beam_sink.sinks.mysql import MySQLConfig, WriteToMySQL, ReadMySQL

@@ -1,4 +1,4 @@
-from beam_sink.sinks.mysql import MySQLQuery, MySQLInsert, MySQLConfig
+from beam_sink.sinks.mysql import ReadMySQL, WriteToMySQL, MySQLConfig
 import apache_beam as beam
 import unittest
 import pytest
@@ -27,7 +27,7 @@ class TestMySQL(unittest.TestCase):
 
     def test_mysql_query_returns(self):
         with beam.Pipeline() as p:
-            p | 'ReadTable' >> MySQLQuery(self.config, "select * from thrillhouse")
+            p | 'ReadTable' >> ReadMySQL(self.config, "select * from thrillhouse")
 
     def test_success_of_assignment(self):
         config = {"host": HOST, "username": "root", "password": "root", "database": "thrillhouse"}
@@ -48,6 +48,6 @@ class TestMySQL(unittest.TestCase):
                 p
                 | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.json")
                 | 'Parse' >> beam.Map(lambda x: json.loads(x))
-                | 'WriteData' >> MySQLInsert(self.config, "thrillhouse", ["id", "description", "amount"])
+                | 'WriteData' >> WriteToMySQL(self.config, "thrillhouse", ["id", "description", "amount"])
             )
 
