@@ -20,7 +20,7 @@ pip install beam_sink
 
 ```python
 import apache_beam as beam
-from beam_sink import MySQLQuery, MySQLInsert, MySQLConfig
+from beam_sink import ReadMySQL, WriteToMySQL, MySQLConfig
 import json
 
 # First, we initialise a DB config object that can validate we're providing the right information
@@ -33,7 +33,7 @@ query = "select * from thrillhouse"
 with beam.Pipeline() as p:
     (
         p 
-        | 'ReadTable' >> MySQLQuery(config, query)
+        | 'ReadTable' >> ReadMySQL(config, query)
         | 'PrintResult' >> beam.ParDo(lambda x: print(x))
     )
 
@@ -46,7 +46,7 @@ with beam.Pipeline() as p:
         p
         | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.json")
         | 'Parse' >> beam.Map(lambda x: json.loads(x))
-        | 'WriteData' >> MySQLInsert(config, table, columns)
+        | 'WriteData' >> WriteToMySQL(config, table, columns)
     )
 ```
 
