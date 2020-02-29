@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 with open('requirements.txt') as f:
@@ -16,11 +16,11 @@ setup(
     author_email='m.lisle90@gmail.com',
     description="An Apache Beam Sink Library for Databases and other Sinks.",
     install_requires=requirements,
-    packages=['beam_sink'],
+    packages=find_packages(),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/mitchelllisle/beam-sink',
-    version='0.8.0',
+    version='0.9.0',
     zip_safe=False,
 )
