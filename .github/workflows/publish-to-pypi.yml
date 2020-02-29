@@ -1,8 +1,9 @@
 name: Publish to PyPi
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
