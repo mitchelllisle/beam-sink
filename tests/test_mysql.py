@@ -7,7 +7,8 @@ from pydantic import ValidationError
 import mysql.connector as mysql
 import os
 
-HOST = "localhost" if os.getenv("DEVELOP", False) else "mysql"
+HOST = "localhost"
+    # if os.getenv("DEVELOP", False) else "mysql"
 
 
 def setup_database(config: MySQLConfig):
@@ -47,7 +48,7 @@ class TestMySQL(unittest.TestCase):
             (
                 p
                 | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.jsonl")
-                | 'Parse' >> beam.Map(lambda x: json.loads(x))
+                | 'Parse' >> beam.Map(lambda x: [json.loads(x)])
                 | 'WriteData' >> WriteToMySQL(self.config, "thrillhouse", ["id", "description", "amount"])
             )
 
