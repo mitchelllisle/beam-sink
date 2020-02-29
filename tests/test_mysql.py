@@ -8,10 +8,8 @@ import mysql.connector as mysql
 import os
 import numpy as np
 import funcy as fn
-from apache_beam.transforms import GroupIntoBatches
 
-HOST = "localhost"
-    # if os.getenv("DEVELOP", False) else "mysql"
+HOST = "localhost" if os.getenv("DEVELOP", False) else "mysql"
 
 
 def try_split_even(element, num_partitions: int) -> int:
