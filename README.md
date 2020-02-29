@@ -44,7 +44,7 @@ columns = ["id", "description", "amount"]
 with beam.Pipeline() as p:
     (
         p
-        | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.json")
+        | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.jsonl")
         | 'Parse' >> beam.Map(lambda x: json.loads(x))
         | 'WriteData' >> WriteToMySQL(config, table, columns)
     )

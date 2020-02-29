@@ -6,8 +6,17 @@ import json
 from pydantic import ValidationError
 import mysql.connector as mysql
 import os
+import numpy as np
+import funcy as fn
+from apache_beam.transforms import GroupIntoBatches
 
-HOST = "localhost" if os.getenv("DEVELOP", False) else "mysql"
+HOST = "localhost"
+    # if os.getenv("DEVELOP", False) else "mysql"
+
+
+def try_split_even(element, num_partitions: int) -> int:
+    probability = 1 / num_partitions
+    return np.random.choice(range(num_partitions), p=list(fn.repeat(probability, num_partitions)))
 
 
 def setup_database(config: MySQLConfig):
@@ -46,8 +55,18 @@ class TestMySQL(unittest.TestCase):
         with beam.Pipeline() as p:
             (
                 p
-                | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.json")
+                | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.jsonl")
                 | 'Parse' >> beam.Map(lambda x: json.loads(x))
+                | 'WriteData' >> WriteToMySQL(self.config, "thrillhouse", ["id", "description", "amount"])
+            )
+
+    def test_mysql_insert_with_partitions(self):
+        with beam.Pipeline() as p:
+            output = (
+                p
+                | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.jsonl")
+                | 'Parse' >> beam.Map(lambda x: json.loads(x))
+                | 'Batch' >> beam.BatchElements(2)
                 | 'WriteData' >> WriteToMySQL(self.config, "thrillhouse", ["id", "description", "amount"])
             )
 

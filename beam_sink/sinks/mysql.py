@@ -118,4 +118,7 @@ class _Insert(_PutFn):
     """
     def process(self, element) -> None:
         stmt = f"INSERT INTO `{self.table}` ({', '.join(self.cols)}) VALUES ({', '.join([f'%({col})s' for col in self.cols])});"
-        self.cursor.execute(stmt, element)
+        if isinstance(element, list):
+            self.cursor.executemany(stmt, element)
+        elif isinstance(element, dict):
+            self.cursor.execute(stmt, element)
