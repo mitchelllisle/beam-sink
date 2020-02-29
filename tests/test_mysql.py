@@ -46,8 +46,18 @@ class TestMySQL(unittest.TestCase):
         with beam.Pipeline() as p:
             (
                 p
-                | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.json")
+                | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.jsonl")
                 | 'Parse' >> beam.Map(lambda x: json.loads(x))
+                | 'WriteData' >> WriteToMySQL(self.config, "thrillhouse", ["id", "description", "amount"])
+            )
+
+    def test_mysql_insert_with_partitions(self):
+        with beam.Pipeline() as p:
+            output = (
+                p
+                | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.jsonl")
+                | 'Parse' >> beam.Map(lambda x: json.loads(x))
+                | 'Batch' >> beam.BatchElements(2)
                 | 'WriteData' >> WriteToMySQL(self.config, "thrillhouse", ["id", "description", "amount"])
             )
 
