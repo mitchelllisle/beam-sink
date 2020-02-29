@@ -6,15 +6,8 @@ import json
 from pydantic import ValidationError
 import mysql.connector as mysql
 import os
-import numpy as np
-import funcy as fn
 
 HOST = "localhost" if os.getenv("DEVELOP", False) else "mysql"
-
-
-def try_split_even(element, num_partitions: int) -> int:
-    probability = 1 / num_partitions
-    return np.random.choice(range(num_partitions), p=list(fn.repeat(probability, num_partitions)))
 
 
 def setup_database(config: MySQLConfig):
