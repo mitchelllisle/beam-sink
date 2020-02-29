@@ -12,6 +12,10 @@ class MySQLConfig(BaseModel):
     database: str
 
 
+class InvalidElementType(TypeError):
+    """Error Class for when an Element is not the correct type"""
+
+
 class ReadMySQL(beam.PTransform):
     """
     Query MySQL databases
@@ -107,18 +111,16 @@ class _PutFn(beam.DoFn):
         raise NotImplementedError
 
     def finish_bundle(self):
-        try:
-            self.conn.commit()
-        finally:
-            self.conn.close()
+        self.conn.close()
 
 
 class _Insert(_PutFn):
     """An internal DoFn to be used in a PTransform. Not for external use.
     """
-    def process(self, element) -> None:
+    def process(self, element: List[Dict]) -> None:
         stmt = f"INSERT INTO `{self.table}` ({', '.join(self.cols)}) VALUES ({', '.join([f'%({col})s' for col in self.cols])});"
         if isinstance(element, list):
             self.cursor.executemany(stmt, element)
-        elif isinstance(element, dict):
-            self.cursor.execute(stmt, element)
+            self.conn.commit()
+        else:
+            raise InvalidElementType(f"Wrong element type. Expected List[Dict], received {type(element)}")
