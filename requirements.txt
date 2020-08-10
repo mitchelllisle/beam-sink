@@ -1,4 +1,5 @@
 apache-beam
 mysql-connector-python
 pydantic
+psycopg2-binary
 httplib2>=0.18.0 # not directly required, pinned by Snyk to avoid a vulnerability
