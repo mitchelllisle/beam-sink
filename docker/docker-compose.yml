@@ -5,6 +5,7 @@ services:
     image: circleci/python:3.7.3
     depends_on:
       - mysql
+      - postgres
     volumes:
       - ../:/source
     entrypoint: /source/docker/run-tests.sh
@@ -16,3 +17,11 @@ services:
         MYSQL_ROOT_PASSWORD: 'root'
       ports:
         - '3306:3306'
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: 'thrillhouse'
+      POSTGRES_USER: 'beam'
+      POSTGRES_PASSWORD: 'root'
+    ports:
+      - '5432:5432'
