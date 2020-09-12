@@ -57,7 +57,6 @@ class TestMySQL(unittest.TestCase):
                 p
                 | 'ReadJson' >> beam.io.ReadFromText("tests/.data/test.jsonl")
                 | 'Parse' >> beam.Map(lambda x: json.loads(x))
-                | 'Batch' >> beam.BatchElements(2)
                 | 'WriteData' >> WriteToMySQL(self.config, "thrillhouse", ["id", "description", "amount"])
             )
 
