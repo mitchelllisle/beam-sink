@@ -130,7 +130,7 @@ class _PutFn(beam.DoFn):
 class _Insert(_PutFn):
     """An internal DoFn to be used in a PTransform. Not for external use.
     """
-    def process(self, element: List[Dict]) -> None:
+    def process(self, element) -> None:
         stmt = (
             f"INSERT INTO `{self.table}`"
             f"({', '.join(self.cols)}) VALUES ({', '.join([f'%({col})s' for col in self.cols])})"
