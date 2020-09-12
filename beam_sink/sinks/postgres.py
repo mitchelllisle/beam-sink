@@ -57,15 +57,18 @@ class WriteToPostgres(beam.PTransform):
         table: The table name to insert into
         columns: The columns contained in the rows to be included
     """
-    def __init__(self, dbconfig: PostgresConfig, table: str, columns: List):
+    def __init__(self, dbconfig: PostgresConfig, table: str, columns: List, batch_size: int = 10000, **kwargs):
         super().__init__()
         self.dbconfig = dbconfig
         self.table = table
         self.columns = columns
+        self.batch_size = batch_size
+        self.kwargs = kwargs
 
     def expand(self, pcoll):
         return (
             pcoll
+            | beam.BatchElements(min_batch_size=self.batch_size, **self.kwargs)
             | beam.ParDo(_Insert(self.table, self.columns, self.dbconfig))
         )
 
